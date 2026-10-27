@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block head %}<meta name="csrf-token" content="{{ csrf_token() }}">
+<meta name="robots" content="noindex, nofollow">{% endblock %}
+{% block body_class %}page-admin{% endblock %}
+
+{% block body %}
+<header class="topbar admin-bar no-print">
+  <div class="container topbar-inner">
+    <a class="brand" href="{{ url_for('admin_dashboard') }}">
+      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="">
+      <span>{{ business.name }} <small>Admin</small></span>
+    </a>
+    <nav class="admin-nav" aria-label="Admin">
+      <a href="{{ url_for('admin_dashboard') }}" class="{{ 'active' if request.endpoint in ('admin_dashboard', 'admin_order') }}">Orders</a>
+      <a href="{{ url_for('admin_settings') }}" class="{{ 'active' if request.endpoint == 'admin_settings' }}">Settings</a>
+      <a href="{{ url_for('index') }}" target="_blank" rel="noopener">View website</a>
+      <form method="post" action="{{ url_for('admin_logout') }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <button type="submit" class="link-btn">Log out</button>
+      </form>
+    </nav>
+  </div>
+</header>
+<main class="container admin-main">
+  {% block admin_content %}{% endblock %}
+</main>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+{% endblock %}

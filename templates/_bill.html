@@ -1,0 +1,86 @@
+<article class="bill" id="bill">
+  <header class="bill-head">
+    <img class="bill-logo" src="{{ url_for('static', filename='images/logo.png') }}" alt="">
+    <div class="bill-shop">
+      <h2>{{ business.name }}</h2>
+      <div class="bill-caption">{{ business.caption_words|join(' · ') }}</div>
+      <p>{{ business.location }}</p>
+      <p>Contact: {{ business.phone }}</p>
+    </div>
+    <div class="bill-meta">
+      <div class="bill-title">{% if show_prices %}BILL{% else %}BOOKING REQUEST{% endif %}</div>
+      <div><span>No.</span> <strong>{{ order.order_no }}</strong></div>
+      <div><span>Date</span> {{ order.created_at|dt }}</div>
+      <div><span>Status</span> <b class="badge-status {{ order.status }}">{{ order.status|capitalize }}</b></div>
+    </div>
+  </header>
+
+  <div class="bill-grid">
+    <div>
+      <h3>Billed to</h3>
+      <p><strong>{{ order.customer_name }}</strong></p>
+      <p>Mobile: {{ order.phone }}</p>
+      <p>{{ order.address }}</p>
+      {% if order.customer_note %}<p class="bill-note">Note: {{ order.customer_note }}</p>{% endif %}
+    </div>
+    <div>
+      <h3>Supplier</h3>
+      <p><strong>{{ business.name }}</strong></p>
+      <p>Admin: {{ business.admin_name }}</p>
+      <p>{{ business.location }}</p>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table class="bill-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Item</th>
+          <th class="num">Quantity</th>
+          <th class="num">Rate</th>
+          <th class="num">Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in items %}
+        <tr>
+          <td>{{ loop.index }}</td>
+          <td><strong>{{ item.name }}</strong><small>{{ item.category|capitalize }}</small></td>
+          <td class="num">{{ item.quantity|qty }} {{ item.unit }}</td>
+          {% if show_prices %}
+          <td class="num">{{ item.unit_price|inr }}</td>
+          <td class="num">{{ item.amount|inr }}</td>
+          {% else %}
+          <td class="num pending-cell" colspan="2">Price awaited</td>
+          {% endif %}
+        </tr>
+        {% endfor %}
+      </tbody>
+      {% if show_prices %}
+      <tfoot>
+        <tr><td colspan="4" class="num">Subtotal</td><td class="num">{{ subtotal|inr }}</td></tr>
+        {% if order.other_charges > 0 %}
+        <tr><td colspan="4" class="num">Transport / other charges</td><td class="num">{{ order.other_charges|inr }}</td></tr>
+        {% endif %}
+        <tr class="grand"><td colspan="4" class="num">Total payable</td><td class="num">{{ order.total|inr }}</td></tr>
+      </tfoot>
+      {% endif %}
+    </table>
+  </div>
+
+  {% if show_prices and order.admin_note %}
+  <p class="bill-note"><strong>Note from admin:</strong> {{ order.admin_note }}</p>
+  {% endif %}
+
+  <footer class="bill-foot">
+    <div>
+      <p>Thank you for booking with {{ business.name }}.</p>
+      <p class="muted">This is a computer generated bill.</p>
+    </div>
+    <div class="sign">
+      <span>Authorised by</span>
+      <strong>{{ business.admin_name }}</strong>
+    </div>
+  </footer>
+</article>

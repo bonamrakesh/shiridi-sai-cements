@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}{{ code }} · {{ business.name }}{% endblock %}
+{% block body %}
+<main class="center-screen">
+  <div class="auth-card">
+    <img class="auth-logo" src="{{ url_for('static', filename='images/logo.png') }}" alt="">
+    <h1>{{ code }}</h1>
+    <p>{{ message }}</p>
+    <a class="btn btn-primary" href="{{ url_for('index') }}">Go to home page</a>
+  </div>
+</main>
+{% endblock %}

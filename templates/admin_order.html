@@ -1,0 +1,114 @@
+{% extends "admin_base.html" %}
+{% block title %}{{ order.order_no }} · Admin · {{ business.name }}{% endblock %}
+
+{% block admin_content %}
+{% set per = {'Bags': 'bag', 'Pieces': 'piece', 'Tons': 'ton'} %}
+{% set editable = order.status == 'pending' %}
+<section id="admin-order" data-id="{{ order.id }}">
+  <div class="page-head no-print">
+    <a class="back-link" href="{{ url_for('admin_dashboard') }}">&larr; All orders</a>
+    <div class="head-row">
+      <h1>{{ order.order_no }}</h1>
+      <span class="badge-status {{ order.status }}">{{ order.status|capitalize }}</span>
+    </div>
+    <p class="muted">Received {{ order.created_at|dt }}</p>
+  </div>
+
+  <div class="order-layout no-print">
+    <aside class="card customer-card">
+      <h2>Customer</h2>
+      <dl>
+        <dt>Name</dt><dd>{{ order.customer_name }}</dd>
+        <dt>Mobile</dt><dd><a href="tel:+91{{ order.phone }}">{{ order.phone }}</a></dd>
+        <dt>Delivery address</dt><dd>{{ order.address }}</dd>
+        {% if order.customer_note %}<dt>Note</dt><dd>{{ order.customer_note }}</dd>{% endif %}
+      </dl>
+    </aside>
+
+    <div class="card pricing-card">
+      <h2>{% if editable %}Enter prices{% else %}Items and prices{% endif %}</h2>
+      <div class="table-wrap">
+        <table class="data-table price-table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th class="num">Quantity</th>
+              <th class="num">Price per unit (&#8377;)</th>
+              <th class="num">Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for it in items %}
+            <tr>
+              <td><strong>{{ it.name }}</strong><small>{{ it.category|capitalize }}</small></td>
+              <td class="num">{{ it.quantity|qty }} {{ it.unit }}</td>
+              <td class="num">
+                {% if editable %}
+                <label class="sr-only" for="price-{{ it.id }}">Price per {{ per[it.unit] }} for {{ it.name }}</label>
+                <input class="price-input" id="price-{{ it.id }}" data-item-id="{{ it.id }}" data-qty="{{ it.quantity|qty }}"
+                       inputmode="decimal" placeholder="per {{ per[it.unit] }}" autocomplete="off"
+                       value="{{ it.unit_price if it.unit_price is not none else '' }}">
+                {% else %}
+                {{ it.unit_price|inr }} <small>per {{ per[it.unit] }}</small>
+                {% endif %}
+              </td>
+              <td class="num" id="amt-{{ it.id }}">{% if it.amount is not none %}{{ it.amount|inr }}{% else %}&mdash;{% endif %}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="3" class="num">Subtotal</td>
+              <td class="num" id="subtotalCell">{{ subtotal|inr }}</td>
+            </tr>
+            <tr>
+              <td colspan="3" class="num">Transport / other charges (&#8377;)</td>
+              <td class="num">
+                {% if editable %}
+                <input class="price-input" id="otherCharges" inputmode="decimal" placeholder="0" autocomplete="off"
+                       value="{{ order.other_charges if order.other_charges > 0 else '' }}">
+                {% else %}{{ order.other_charges|inr }}{% endif %}
+              </td>
+            </tr>
+            <tr class="grand">
+              <td colspan="3" class="num">Total</td>
+              <td class="num" id="totalCell">{% if order.total is not none %}{{ order.total|inr }}{% else %}{{ (subtotal + order.other_charges)|inr }}{% endif %}</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+      {% if editable %}
+      <label class="field note-field"><span>Note for the customer <small>(optional, shown on the bill)</small></span>
+        <textarea id="adminNote" rows="2" maxlength="300">{{ order.admin_note or '' }}</textarea>
+      </label>
+      <p class="form-error" id="adminMsg" role="alert" hidden></p>
+      <div class="action-row">
+        <button type="button" class="btn btn-ok" data-action="approve">Approve &amp; send bill</button>
+        <button type="button" class="btn btn-ghost" data-action="save">Save draft</button>
+        <button type="button" class="btn btn-danger push-right" data-action="reject">Reject order</button>
+      </div>
+      <p class="fine">The customer keeps seeing &ldquo;Wait please! Prices are calculated by the admin&rdquo; until you approve.</p>
+      {% else %}
+      <p class="form-error" id="adminMsg" role="alert" hidden></p>
+      <div class="action-row">
+        {% if order.status == 'approved' %}
+        <button type="button" class="btn btn-primary" id="printAdminBill">Print bill</button>
+        <a class="btn btn-ghost" target="_blank" rel="noopener"
+           href="https://wa.me/91{{ order.phone }}?text={{ ('Hello ' ~ order.customer_name ~ ', your bill ' ~ order.order_no ~ ' from ' ~ business.name ~ ' is ready: ' ~ url_for('order_page', token=order.token, _external=True))|urlencode }}">Send link on WhatsApp</a>
+        {% endif %}
+        <button type="button" class="btn btn-ghost push-right" data-action="reopen">Reopen to edit</button>
+      </div>
+      {% if order.admin_note %}<p class="fine">Note shown to customer: {{ order.admin_note }}</p>{% endif %}
+      {% endif %}
+    </div>
+  </div>
+
+  {% if order.status == 'approved' %}
+  <div class="bill-preview">
+    <h2 class="no-print">Bill preview</h2>
+    {% include "_bill.html" %}
+  </div>
+  {% endif %}
+</section>
+{% endblock %}

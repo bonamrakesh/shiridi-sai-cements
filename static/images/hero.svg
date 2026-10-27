@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" role="img" aria-label="Delivery truck with cement bags and iron bars at a building site">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bfe0f7"/><stop offset=".7" stop-color="#eef6fc"/><stop offset="1" stop-color="#fdf3e4"/></linearGradient>
+    <linearGradient id="rod" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8c97a3"/><stop offset=".4" stop-color="#5b6672"/><stop offset="1" stop-color="#2a323b"/></linearGradient>
+    <pattern id="ribs" width="9" height="20" patternUnits="userSpaceOnUse" patternTransform="skewX(-28)"><rect width="2" height="20" fill="#1f262e" opacity=".55"/></pattern>
+    <g id="bag">
+      <path d="M6 14 Q3 6 14 5 L86 5 Q97 6 94 14 L98 62 Q99 70 90 71 L10 71 Q1 70 2 62 Z" fill="#eef1f4" stroke="#aab4be" stroke-width="1.5"/>
+      <rect x="2" y="30" width="96" height="26" fill="#1f78c8"/><rect x="2" y="56" width="96" height="3" fill="#e9871a"/>
+      <text x="50" y="48" text-anchor="middle" font-family="Poppins, Arial, sans-serif" font-weight="700" font-size="13" letter-spacing="1.5" fill="#fff">CEMENT</text>
+      <path d="M10 18 Q9 40 11 60" stroke="#fff" stroke-opacity=".6" stroke-width="3" fill="none" stroke-linecap="round"/>
+    </g>
+    <g id="rodL"><rect width="200" height="11" rx="5.5" fill="url(#rod)"/><rect width="200" height="11" rx="5.5" fill="url(#ribs)"/><rect x="5" y="1.5" width="190" height="2" rx="1" fill="#fff" opacity=".35"/></g>
+    <g id="wheel"><circle r="26" fill="#1f262e"/><circle r="12" fill="#9aa5b1"/><circle r="4" fill="#1f262e"/></g>
+  </defs>
+  <rect width="1200" height="400" fill="url(#sky)"/>
+  <circle cx="1010" cy="92" r="52" fill="#ffd9a0" opacity=".55"/><circle cx="1010" cy="92" r="32" fill="#ffc36b" opacity=".9"/>
+  <g fill="#fff" opacity=".95">
+    <ellipse cx="210" cy="84" rx="64" ry="16"/><ellipse cx="250" cy="70" rx="44" ry="15"/>
+    <ellipse cx="600" cy="56" rx="72" ry="15"/><ellipse cx="640" cy="44" rx="40" ry="13"/>
+    <ellipse cx="830" cy="128" rx="54" ry="12"/>
+  </g>
+  <g fill="#d3e3f2">
+    <rect x="0" y="250" width="60" height="76"/><rect x="70" y="228" width="48" height="98"/><rect x="128" y="262" width="70" height="64"/>
+    <rect x="210" y="236" width="40" height="90"/><rect x="262" y="256" width="64" height="70"/><rect x="340" y="222" width="52" height="104"/>
+    <rect x="404" y="258" width="60" height="68"/><rect x="560" y="246" width="44" height="80"/><rect x="616" y="262" width="70" height="64"/>
+    <rect x="700" y="232" width="46" height="94"/><rect x="760" y="258" width="62" height="68"/><rect x="836" y="240" width="48" height="86"/>
+  </g>
+  <g fill="#bfd3e6">
+    <rect x="948" y="320" width="190" height="8"/><rect x="948" y="262" width="190" height="8"/><rect x="948" y="204" width="190" height="8"/>
+    <rect x="950" y="204" width="7" height="122"/><rect x="1006" y="204" width="7" height="122"/><rect x="1062" y="204" width="7" height="122"/><rect x="1118" y="204" width="7" height="122"/>
+  </g>
+  <g fill="#e9871a">
+    <rect x="1152" y="62" width="9" height="266"/><rect x="1010" y="62" width="176" height="7"/><rect x="1186" y="62" width="10" height="7"/><rect x="1176" y="69" width="20" height="16" fill="#7b8794"/>
+  </g>
+  <path d="M1156 36 L1012 64 M1156 36 L1190 64" stroke="#e9871a" stroke-width="2" fill="none"/>
+  <line x1="1034" y1="69" x2="1034" y2="128" stroke="#5d6c7b" stroke-width="2"/><rect x="1020" y="128" width="28" height="18" rx="2" fill="#7b8794"/>
+  <rect y="326" width="1200" height="74" fill="#e4eaf0"/>
+  <rect y="338" width="1200" height="62" fill="#3a444f"/>
+  <g fill="#f5f7fa" opacity=".85"><rect x="20" y="368" width="70" height="5"/><rect x="150" y="368" width="70" height="5"/><rect x="280" y="368" width="70" height="5"/><rect x="410" y="368" width="70" height="5"/><rect x="540" y="368" width="70" height="5"/><rect x="670" y="368" width="70" height="5"/><rect x="800" y="368" width="70" height="5"/><rect x="930" y="368" width="70" height="5"/><rect x="1060" y="368" width="70" height="5"/></g>
+  <rect y="338" width="1200" height="4" fill="#e9871a"/>
+
+  <ellipse cx="180" cy="327" rx="150" ry="7" fill="#0e2a47" opacity=".2"/>
+  <use href="#bag" x="62" y="255"/><use href="#bag" x="170" y="255"/><use href="#bag" x="116" y="184"/>
+  <ellipse cx="400" cy="327" rx="115" ry="6" fill="#0e2a47" opacity=".2"/>
+  <g transform="translate(300 254)">
+    <use href="#rodL" y="0"/><use href="#rodL" y="12"/><use href="#rodL" y="24"/><use href="#rodL" y="36"/><use href="#rodL" y="48"/><use href="#rodL" y="60"/>
+    <rect x="50" y="-4" width="9" height="82" rx="2" fill="#e9871a"/><rect x="140" y="-4" width="9" height="82" rx="2" fill="#e9871a"/>
+  </g>
+
+  <g transform="translate(520 190)">
+    <ellipse cx="225" cy="182" rx="245" ry="9" fill="#0e2a47" opacity=".3"/>
+    <rect x="0" y="120" width="440" height="22" rx="4" fill="#2c353f"/>
+    <rect x="0" y="104" width="312" height="18" fill="#6b7782"/><rect x="0" y="96" width="312" height="8" fill="#8a95a1"/>
+    <use href="#bag" transform="translate(8 32) scale(.9)"/><use href="#bag" transform="translate(106 32) scale(.9)"/><use href="#bag" transform="translate(204 32) scale(.9)"/>
+    <use href="#bag" transform="translate(57 -27) scale(.9)"/><use href="#bag" transform="translate(155 -27) scale(.9)"/>
+    <path d="M312 142 L312 52 Q312 44 320 44 L378 44 L414 90 L436 96 Q440 97 440 102 L440 142 Z" fill="#1b6fb6"/>
+    <path d="M324 56 L372 56 L402 92 L324 92 Z" fill="#d6ebfa"/>
+    <path d="M360 96 L360 140" stroke="#12528a" stroke-width="2"/>
+    <rect x="312" y="118" width="128" height="6" fill="#e9871a"/>
+    <text x="330" y="112" font-family="Poppins, Arial, sans-serif" font-weight="700" font-size="15" letter-spacing="1" fill="#fff">SSC</text>
+    <circle cx="434" cy="108" r="5" fill="#ffe08a"/><rect x="432" y="130" width="16" height="10" rx="3" fill="#8a95a1"/>
+    <use href="#wheel" x="70" y="152"/><use href="#wheel" x="142" y="152"/><use href="#wheel" x="372" y="152"/>
+  </g>
+</svg>

@@ -1,0 +1,8 @@
+{
+  "files.associations": {
+    "templates/*.html": "jinja-html"
+  },
+  "python.defaultInterpreterPath": "${workspaceFolder}/venv/Scripts/python.exe",
+  "editor.formatOnSave": false,
+  "emmet.includeLanguages": { "jinja-html": "html" }
+}

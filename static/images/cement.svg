@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260" role="img" aria-label="Stack of cement bags">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eaf3fb"/><stop offset="1" stop-color="#f7fafc"/></linearGradient>
+    <linearGradient id="bag" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#cfd6dd"/><stop offset=".45" stop-color="#eef1f4"/><stop offset="1" stop-color="#c3cbd3"/></linearGradient>
+    <linearGradient id="band" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#175c9b"/><stop offset=".5" stop-color="#2380cf"/><stop offset="1" stop-color="#175c9b"/></linearGradient>
+    <g id="cb">
+      <path d="M8 22 Q4 10 22 8 L128 8 Q146 10 142 22 L148 118 Q149 134 132 136 L18 136 Q1 134 2 118 Z" fill="url(#bag)" stroke="#aab4be" stroke-width="2"/>
+      <path d="M22 8 Q75 20 128 8" fill="none" stroke="#aab4be" stroke-width="2"/>
+      <rect x="2" y="52" width="146" height="44" fill="url(#band)"/>
+      <rect x="2" y="96" width="146" height="5" fill="#e9871a"/>
+      <text x="75" y="82" text-anchor="middle" font-family="Poppins, Arial, sans-serif" font-weight="700" font-size="22" letter-spacing="3" fill="#fff">CEMENT</text>
+      <text x="75" y="122" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-weight="600" font-size="13" fill="#5d6c7b">50 kg</text>
+      <path d="M14 30 Q12 70 16 120" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="5" stroke-linecap="round"/>
+    </g>
+  </defs>
+  <rect width="400" height="260" rx="18" fill="url(#bg)"/>
+  <ellipse cx="200" cy="236" rx="165" ry="12" fill="#0e2a47" opacity=".14"/>
+  <use href="#cb" x="48" y="98"/>
+  <use href="#cb" x="202" y="98"/>
+  <use href="#cb" x="125" y="-2" transform="translate(0 0)"/>
+</svg>

@@ -1,0 +1,19 @@
+<footer class="site-footer no-print">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <span class="footer-logo"><img src="{{ url_for('static', filename='images/logo.png') }}" alt="{{ business.name }} logo"></span>
+      <div>
+        <strong>{{ business.name }}</strong>
+        <span>{{ business.caption_words|join(' · ') }}</span>
+      </div>
+    </div>
+    <ul class="footer-details">
+      <li><span>Admin</span>{{ business.admin_name }}</li>
+      <li><span>Location</span>{{ business.location }}</li>
+      <li><span>Contact</span><a href="tel:+91{{ business.phone }}">{{ business.phone }}</a></li>
+    </ul>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">&copy; {{ year }} {{ business.name }}. All rights reserved.</div>
+  </div>
+</footer>

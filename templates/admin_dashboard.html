@@ -1,0 +1,74 @@
+{% extends "admin_base.html" %}
+{% block title %}Orders · Admin · {{ business.name }}{% endblock %}
+
+{% block admin_content %}
+<section id="admin-dashboard" data-latest="{{ latest_id }}">
+  <div class="page-head">
+    <h1>Orders</h1>
+    <p class="muted">Bookings from customers. Open an order, enter the prices and approve it to send the bill.</p>
+  </div>
+
+  {% if admin.must_change %}
+  <div class="notice warn">You are still using the default password. <a href="{{ url_for('admin_settings') }}">Change it now</a> to keep your orders safe.</div>
+  {% endif %}
+
+  <div class="toast" id="newToast" role="status" hidden>
+    A new booking has arrived. <a href="{{ request.full_path.rstrip('?') }}">Refresh the list</a>
+  </div>
+
+  <div class="stats">
+    <a class="stat pending" href="{{ url_for('admin_dashboard', status='pending') }}"><span>Waiting for price</span><strong>{{ counts.pending }}</strong></a>
+    <a class="stat approved" href="{{ url_for('admin_dashboard', status='approved') }}"><span>Approved</span><strong>{{ counts.approved }}</strong></a>
+    <a class="stat rejected" href="{{ url_for('admin_dashboard', status='rejected') }}"><span>Rejected</span><strong>{{ counts.rejected }}</strong></a>
+    <a class="stat all" href="{{ url_for('admin_dashboard', status='all') }}"><span>All orders</span><strong>{{ counts.pending + counts.approved + counts.rejected }}</strong></a>
+  </div>
+
+  <div class="toolbar">
+    <nav class="tabs" aria-label="Filter orders">
+      {% for key, label in [('pending', 'Pending'), ('approved', 'Approved'), ('rejected', 'Rejected'), ('all', 'All')] %}
+      <a href="{{ url_for('admin_dashboard', status=key) }}" class="{{ 'active' if status == key }}">{{ label }}</a>
+      {% endfor %}
+    </nav>
+    <form class="search" method="get" action="{{ url_for('admin_dashboard') }}">
+      <input type="hidden" name="status" value="{{ status }}">
+      <input type="search" name="q" value="{{ query }}" placeholder="Search order no, name or mobile" aria-label="Search orders">
+      <button class="btn btn-ghost small" type="submit">Search</button>
+    </form>
+  </div>
+
+  <div class="card table-card">
+    {% if orders %}
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Order no.</th>
+            <th>Received</th>
+            <th>Customer</th>
+            <th>Items</th>
+            <th>Status</th>
+            <th class="num">Total</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for o in orders %}
+          <tr>
+            <td><a href="{{ url_for('admin_order', order_id=o.id) }}"><strong>{{ o.order_no }}</strong></a></td>
+            <td>{{ o.created_at|dt }}</td>
+            <td><strong>{{ o.customer_name }}</strong><small>{{ o.phone }}</small></td>
+            <td>{{ o.summary }}</td>
+            <td><span class="badge-status {{ o.status }}">{{ o.status|capitalize }}</span></td>
+            <td class="num">{% if o.total %}{{ o.total|inr }}{% else %}&mdash;{% endif %}</td>
+            <td class="num"><a class="btn btn-primary small" href="{{ url_for('admin_order', order_id=o.id) }}">{% if o.status == 'pending' %}Price it{% else %}Open{% endif %}</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <p class="empty">No orders to show here yet.</p>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

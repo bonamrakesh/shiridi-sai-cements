@@ -1,0 +1,204 @@
+
+{% extends "base.html" %}
+{% block body_class %}page-home{% endblock %}
+
+{% block body %}
+<div id="splash" class="splash" aria-hidden="true">
+  <div class="splash-inner">
+    <img class="splash-logo" src="{{ url_for('static', filename='images/logo.png') }}" alt="">
+    <div class="splash-name">{{ business.name }}</div>
+    <div class="caption">
+      {% for word in business.caption_words %}<span>{{ word }}</span>{% if not loop.last %}<i class="dot"></i>{% endif %}{% endfor %}
+    </div>
+  </div>
+</div>
+<script src="{{ url_for('static', filename='js/splash.js') }}"></script>
+
+<header class="topbar no-print">
+  <div class="container topbar-inner">
+    <a class="brand" href="{{ url_for('index') }}">
+      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="">
+      <span>{{ business.name }}</span>
+    </a>
+    <nav class="topnav" aria-label="Choose what to book">
+      <button type="button" class="nav-btn" data-cat="cement" aria-pressed="false">Cement</button>
+      <button type="button" class="nav-btn" data-cat="iron" aria-pressed="false">Iron</button>
+      <a class="nav-link" href="#track">Track order</a>
+      <a class="nav-link" href="#contact">Contact</a>
+    </nav>
+    <a class="admin-link" href="{{ url_for('admin_login') }}">Admin login</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container hero-inner">
+    <img class="hero-logo" src="{{ url_for('static', filename='images/logo.png') }}" alt="{{ business.name }} logo">
+    <h1 class="hero-name">{{ business.name }}</h1>
+    <div class="caption">
+      {% for word in business.caption_words %}<span>{{ word }}</span>{% if not loop.last %}<i class="dot"></i>{% endif %}{% endfor %}
+    </div>
+    <p class="hero-sub">Book cement and iron online. Our admin confirms the price and sends you your final bill.</p>
+    <div class="hero-cta">
+      <button type="button" class="btn btn-accent" data-cat="cement">Book cement</button>
+      <button type="button" class="btn btn-primary" data-cat="iron">Book iron</button>
+      <a class="btn btn-ghost" href="tel:+91{{ business.phone }}">Call {{ business.phone }}</a>
+    </div>
+  </div>
+</section>
+
+<section class="trust" aria-label="Why customers book with us">
+  <div class="container trust-grid">
+    <div class="trust-item">
+      <span class="trust-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.2 8.3-8 9-4.8-.7-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></span>
+      <div><strong>Well-known brands</strong><span>Maha, UltraTech, Anjani, Ramco and more</span></div>
+    </div>
+    <div class="trust-item">
+      <span class="trust-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 5h12M6 9h12M9 5c4 0 6 2 6 4s-2 4-6 4l6 6"/></svg></span>
+      <div><strong>Prices confirmed by admin</strong><span>A fair price for your quantity</span></div>
+    </div>
+    <div class="trust-item">
+      <span class="trust-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/></svg></span>
+      <div><strong>Printable bill</strong><span>A clean bill you can print or save</span></div>
+    </div>
+    <div class="trust-item">
+      <span class="trust-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h12v10H2zM14 9h4l4 3v4h-8z"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg></span>
+      <div><strong>Delivery to your address</strong><span>Share your address when you book</span></div>
+    </div>
+  </div>
+</section>
+
+<main class="container main">
+  <section class="choose" aria-labelledby="chooseTitle">
+    <h2 id="chooseTitle" class="section-title">What would you like to book?</h2>
+    <div class="choose-grid">
+      <button type="button" class="choose-card cement" data-cat="cement">
+        {% if catalog.cement.image %}<img class="choose-img" src="{{ catalog.cement.image }}" alt="Cement bags" width="400" height="260">{% endif %}
+        <strong>Cement</strong>
+        <span>{{ catalog.cement['items']|join(', ') }}</span>
+        <em>Order in bags</em>
+      </button>
+      <button type="button" class="choose-card iron" data-cat="iron">
+        {% if catalog.iron.image %}<img class="choose-img" src="{{ catalog.iron.image }}" alt="TMT iron bars" width="400" height="260">{% endif %}
+        <strong>Iron</strong>
+        <span>TMT bars in {{ catalog.iron['items']|length }} sizes</span>
+        <em>Order in pieces or tons</em>
+      </button>
+    </div>
+  </section>
+
+  <section class="order-area" id="orderArea" hidden>
+    <div class="panel" id="productPanel" hidden>
+      <div class="panel-head">
+        <h2 id="panelTitle">Choose your products</h2>
+        <button type="button" class="link-btn" id="closePanel">Close</button>
+      </div>
+      <div class="product-grid" id="productGrid"></div>
+    </div>
+
+    <aside class="cart" id="cart" aria-labelledby="cartTitle">
+      <h3 id="cartTitle">Your order <span class="count" id="cartCount">0</span></h3>
+      <ul class="cart-list" id="cartList"></ul>
+      <p class="cart-empty" id="cartEmpty">Nothing added yet. Pick a product and enter the quantity.</p>
+
+      <form id="orderForm" novalidate>
+        <label class="field"><span>Your name</span>
+          <input name="name" autocomplete="name" maxlength="80" required>
+        </label>
+        <label class="field"><span>Mobile number</span>
+          <input name="phone" inputmode="tel" autocomplete="tel" maxlength="16" placeholder="10-digit mobile number" required>
+        </label>
+        <label class="field"><span>Delivery address</span>
+          <textarea name="address" rows="3" maxlength="300" required></textarea>
+        </label>
+        <label class="field"><span>Note <small>(optional)</small></span>
+          <input name="note" maxlength="200">
+        </label>
+        <p class="form-error" id="formError" role="alert" hidden></p>
+        <button class="btn btn-accent btn-block" id="submitBtn" type="submit" disabled>Generate bill</button>
+        <p class="fine">Prices are not shown now. After you generate the bill, our admin calculates the prices and you get your final bill here.</p>
+      </form>
+    </aside>
+  </section>
+
+  <section class="promise" aria-labelledby="promiseTitle">
+    <h2 id="promiseTitle" class="section-title">Our promise</h2>
+    <div class="promise-grid">
+      <article class="promise-card">
+        <h3>Trust</h3>
+        <p>You see every item before you book, and no price is shown until our admin has checked and confirmed it.</p>
+      </article>
+      <article class="promise-card">
+        <h3>Quality</h3>
+        <p>Well-known cement brands and TMT iron bars in standard sizes, supplied by {{ business.name }}.</p>
+      </article>
+      <article class="promise-card">
+        <h3>Reasonable price</h3>
+        <p>Tell us how much you need and we work out a fair price for your order. No guesswork, no haggling online.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="steps" aria-labelledby="stepsTitle">
+    <h2 id="stepsTitle" class="section-title">How it works</h2>
+    <ol class="steps-grid">
+      <li><b>1</b><strong>Choose</strong><span>Pick cement or iron and enter how much you need.</span></li>
+      <li><b>2</b><strong>Generate bill</strong><span>Add your details and send the booking to our admin.</span></li>
+      <li><b>3</b><strong>Admin prices it</strong><span>We calculate the best price for your order.</span></li>
+      <li><b>4</b><strong>Get your bill</strong><span>Your final bill appears here, ready to print.</span></li>
+    </ol>
+  </section>
+
+  <section class="track card" id="track" aria-labelledby="trackTitle">
+    <div>
+      <h2 id="trackTitle">Track an order</h2>
+      <p>Enter your order number and mobile number to see your bill again.</p>
+      <p class="last-order" id="lastOrder" hidden>Your last booking: <a id="lastOrderLink" href="#"><span id="lastOrderText"></span></a></p>
+    </div>
+    <form method="post" action="{{ url_for('track_order') }}" class="track-form">
+      <label class="field"><span>Order number</span>
+        <input name="order_no" placeholder="SSC-20261016-0001" required>
+      </label>
+      <label class="field"><span>Mobile number</span>
+        <input name="phone" inputmode="tel" required>
+      </label>
+      <button class="btn btn-primary" type="submit">Find my order</button>
+    </form>
+    {% if track_error %}<p class="form-error track-error" role="alert">We could not find an order with those details. Please check and try again.</p>{% endif %}
+  </section>
+
+  <section class="contact" id="contact" aria-labelledby="contactTitle">
+    <div>
+      <h2 id="contactTitle">Visit or call us</h2>
+      <p>Questions about stock, delivery or your order? Talk to us directly.</p>
+      <ul class="contact-list">
+        <li><span>Admin</span><b>{{ business.admin_name }}</b></li>
+        <li><span>Location</span><b>{{ business.location }}</b></li>
+        <li><span>Contact</span><a href="tel:+91{{ business.phone }}">{{ business.phone }}</a></li>
+      </ul>
+    </div>
+    <div class="contact-side">
+      <div class="contact-logo"><img src="{{ url_for('static', filename='images/logo.png') }}" alt="{{ business.name }} logo"></div>
+      <div class="contact-actions">
+        <a class="btn btn-accent" href="tel:+91{{ business.phone }}">Call now</a>
+        <a class="btn btn-wa" target="_blank" rel="noopener" href="https://wa.me/91{{ business.phone }}?text={{ ('Hello ' ~ business.name ~ ', I would like to enquire about cement and iron.')|urlencode }}">WhatsApp us</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+{% include "_footer.html" %}
+
+<div class="fab-wrap no-print">
+  <a class="fab wa" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp" href="https://wa.me/91{{ business.phone }}?text={{ ('Hello ' ~ business.name ~ ', I would like to enquire about cement and iron.')|urlencode }}">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20.5l1.7-5.2A8.5 8.5 0 1 1 21 11.5z"/><path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.5-2-1-1 .8c-1-.4-2-1.4-2.4-2.4l.8-1-1-2z"/></svg>
+  </a>
+  <a class="fab call" aria-label="Call {{ business.phone }}" href="tel:+91{{ business.phone }}">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>
+  </a>
+</div>
+<script id="catalog-data" type="application/json">{{ catalog|tojson }}</script>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% endblock %}

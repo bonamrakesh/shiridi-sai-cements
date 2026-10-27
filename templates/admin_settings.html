@@ -1,0 +1,34 @@
+{% extends "admin_base.html" %}
+{% block title %}Settings · Admin · {{ business.name }}{% endblock %}
+
+{% block admin_content %}
+<section class="settings">
+  <div class="page-head">
+    <h1>Settings</h1>
+    <p class="muted">Signed in as <strong>{{ admin.username }}</strong></p>
+  </div>
+
+  {% if admin.must_change %}
+  <div class="notice warn">You are using the default password. Please set your own password below.</div>
+  {% endif %}
+
+  <div class="card settings-card">
+    <h2>Change password</h2>
+    <form method="post" novalidate>
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <label class="field"><span>Current password</span>
+        <input type="password" name="current" autocomplete="current-password" required>
+      </label>
+      <label class="field"><span>New password <small>(at least 8 characters)</small></span>
+        <input type="password" name="new" autocomplete="new-password" minlength="8" required>
+      </label>
+      <label class="field"><span>Confirm new password</span>
+        <input type="password" name="confirm" autocomplete="new-password" minlength="8" required>
+      </label>
+      {% if error %}<p class="form-error" role="alert">{{ error }}</p>{% endif %}
+      {% if done %}<p class="form-ok" role="status">{{ done }}</p>{% endif %}
+      <button class="btn btn-primary" type="submit">Update password</button>
+    </form>
+  </div>
+</section>
+{% endblock %}

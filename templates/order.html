@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Order {{ order.order_no }} · {{ business.name }}{% endblock %}
+
+{% block body %}
+<header class="topbar no-print">
+  <div class="container topbar-inner">
+    <a class="brand" href="{{ url_for('index') }}">
+      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="">
+      <span>{{ business.name }}</span>
+    </a>
+    <a class="btn btn-ghost small push-right" href="{{ url_for('index') }}">Back to home</a>
+  </div>
+</header>
+
+<main class="container narrow order-page" id="order-root"
+      data-token="{{ order.token }}" data-status="{{ order.status }}" data-order-no="{{ order.order_no }}">
+
+  {% if order.status == 'pending' %}
+  <section class="status-card pending no-print" role="status">
+    <div class="pulse" aria-hidden="true"></div>
+    <div>
+      <h2>Wait please! Prices are calculated by the admin</h2>
+      <p>You will be notified when calculated. Keep this page open and it will update by itself.</p>
+      <p>Your order number is <strong>{{ order.order_no }}</strong>. Note it down, you can use <em>Track order</em> on the home page with your mobile number to come back later.</p>
+      <button type="button" class="btn btn-ghost small" id="notifyBtn" hidden>Notify me on this device</button>
+    </div>
+  </section>
+  {% elif order.status == 'approved' %}
+  <section class="status-card approved no-print" role="status">
+    <div class="tick" aria-hidden="true">&#10003;</div>
+    <div>
+      <h2>Your bill is ready</h2>
+      <p>The admin has calculated and approved your prices. You can print the bill below.</p>
+    </div>
+  </section>
+  {% else %}
+  <section class="status-card rejected no-print" role="status">
+    <div class="cross" aria-hidden="true">!</div>
+    <div>
+      <h2>We could not confirm this booking</h2>
+      {% if order.admin_note %}<p>{{ order.admin_note }}</p>{% endif %}
+      <p>Please call us on <a href="tel:+91{{ business.phone }}">{{ business.phone }}</a> and we will help you.</p>
+    </div>
+  </section>
+  {% endif %}
+
+  {% if order.status != 'rejected' %}
+    {% include "_bill.html" %}
+    <div class="actions no-print">
+      <button type="button" class="btn btn-primary" id="printBtn">Print bill</button>
+      <a class="btn btn-ghost" href="{{ url_for('index') }}">Book more</a>
+    </div>
+  {% endif %}
+</main>
+
+{% include "_footer.html" %}
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/order.js') }}"></script>
+{% endblock %}

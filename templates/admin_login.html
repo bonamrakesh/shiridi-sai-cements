@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Admin login · {{ business.name }}{% endblock %}
+{% block body %}
+<main class="center-screen">
+  <div class="auth-card">
+    <img class="auth-logo" src="{{ url_for('static', filename='images/logo.png') }}" alt="{{ business.name }} logo">
+    <h1>Admin login</h1>
+    <p class="muted">{{ business.name }}</p>
+    <form method="post" novalidate>
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <label class="field"><span>Username</span>
+        <input name="username" autocomplete="username" autofocus required>
+      </label>
+      <label class="field"><span>Password</span>
+        <input name="password" type="password" autocomplete="current-password" required>
+      </label>
+      {% if error %}<p class="form-error" role="alert">{{ error }}</p>{% endif %}
+      <button class="btn btn-primary btn-block" type="submit">Log in</button>
+    </form>
+    <a class="back-link" href="{{ url_for('index') }}">&larr; Back to website</a>
+  </div>
+</main>
+{% endblock %}

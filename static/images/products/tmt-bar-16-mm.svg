@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-label="TMT Bar 16 mm iron bars">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fdf0df"/><stop offset="1" stop-color="#ffffff"/></linearGradient>
+    <linearGradient id="rod" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8c97a3"/><stop offset=".4" stop-color="#5b6672"/><stop offset="1" stop-color="#2a323b"/></linearGradient>
+    <pattern id="ribs" width="14.0" height="40" patternUnits="userSpaceOnUse" patternTransform="skewX(-28)"><rect width="2.8" height="40" fill="#1f262e" opacity=".55"/></pattern>
+  </defs>
+  <rect width="400" height="300" rx="18" fill="url(#bg)"/>
+  <ellipse cx="200" cy="213.0" rx="150" ry="9" fill="#0e2a47" opacity=".16"/>
+  <rect x="60" y="59.0" width="280" height="20.0" rx="10.0" fill="url(#rod)"/><rect x="60" y="59.0" width="280" height="20.0" rx="10.0" fill="url(#ribs)"/><rect x="68" y="61.8" width="264" height="3.6" rx="1" fill="#fff" opacity=".3"/><rect x="60" y="81.0" width="280" height="20.0" rx="10.0" fill="url(#rod)"/><rect x="60" y="81.0" width="280" height="20.0" rx="10.0" fill="url(#ribs)"/><rect x="68" y="83.8" width="264" height="3.6" rx="1" fill="#fff" opacity=".3"/><rect x="60" y="103.0" width="280" height="20.0" rx="10.0" fill="url(#rod)"/><rect x="60" y="103.0" width="280" height="20.0" rx="10.0" fill="url(#ribs)"/><rect x="68" y="105.8" width="264" height="3.6" rx="1" fill="#fff" opacity=".3"/><rect x="60" y="125.0" width="280" height="20.0" rx="10.0" fill="url(#rod)"/><rect x="60" y="125.0" width="280" height="20.0" rx="10.0" fill="url(#ribs)"/><rect x="68" y="127.8" width="264" height="3.6" rx="1" fill="#fff" opacity=".3"/><rect x="60" y="147.0" width="280" height="20.0" rx="10.0" fill="url(#rod)"/><rect x="60" y="147.0" width="280" height="20.0" rx="10.0" fill="url(#ribs)"/><rect x="68" y="149.8" width="264" height="3.6" rx="1" fill="#fff" opacity=".3"/><rect x="60" y="169.0" width="280" height="20.0" rx="10.0" fill="url(#rod)"/><rect x="60" y="169.0" width="280" height="20.0" rx="10.0" fill="url(#ribs)"/><rect x="68" y="171.8" width="264" height="3.6" rx="1" fill="#fff" opacity=".3"/>
+  <rect x="104" y="51.0" width="14" height="148.0" rx="3" fill="#e9871a"/><rect x="282" y="51.0" width="14" height="148.0" rx="3" fill="#e9871a"/>
+  <rect x="107" y="53.0" width="3" height="144.0" fill="#fff" opacity=".35"/><rect x="285" y="53.0" width="3" height="144.0" fill="#fff" opacity=".35"/>
+  <rect x="136" y="100" width="128" height="52" rx="8" fill="#fff" stroke="#e2e8f0" stroke-width="1.5"/>
+  <text x="200" y="119" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-weight="600" font-size="11" letter-spacing="3" fill="#5d6c7b">TMT BAR</text>
+  <text x="200" y="144" text-anchor="middle" font-family="Poppins, Arial, sans-serif" font-weight="700" font-size="24" fill="#0e2a47">16 mm</text>
+</svg>
