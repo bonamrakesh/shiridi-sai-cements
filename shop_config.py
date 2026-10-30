@@ -5,7 +5,7 @@ or to add / remove cement brands and iron sizes. Restart the app afterwards.
 """
 
 BUSINESS = {
-    "name": "Shiridi Sai Cements",
+    "name": "SHIRIDI SAI",
     "caption_words": ["Trust", "Quality", "Reasonable Price"],
     "admin_name": "Bonam Kota Viswanadham",
     "location": "Kadali, Razole Mandal, Dr. B.R. Ambedkar Konaseema",

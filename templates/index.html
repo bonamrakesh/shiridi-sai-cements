@@ -6,7 +6,8 @@
 <div id="splash" class="splash" aria-hidden="true">
   <div class="splash-inner">
     <img class="splash-logo" src="{{ url_for('static', filename='images/logo.png') }}" alt="">
-    <div class="splash-name">{{ business.name }}</div>
+   <div class="splash-name">{{ business.name }}</div>
+<div class="brand-subtitle">CEMENT &amp; IRON</div>
     <div class="caption">
       {% for word in business.caption_words %}<span>{{ word }}</span>{% if not loop.last %}<i class="dot"></i>{% endif %}{% endfor %}
     </div>
@@ -16,10 +17,15 @@
 
 <header class="topbar no-print">
   <div class="container topbar-inner">
-    <a class="brand" href="{{ url_for('index') }}">
-      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="">
-      <span>{{ business.name }}</span>
-    </a>
+    
+<a class="brand" href="{{ url_for('index') }}">
+  <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Shiridi Sai logo">
+  <span class="brand-text">
+    <strong>{{ business.name }}</strong>
+    <small>CEMENT &amp; IRON</small>
+  </span>
+</a>
+
     <nav class="topnav" aria-label="Choose what to book">
       <button type="button" class="nav-btn" data-cat="cement" aria-pressed="false">Cement</button>
       <button type="button" class="nav-btn" data-cat="iron" aria-pressed="false">Iron</button>
@@ -32,8 +38,9 @@
 
 <section class="hero">
   <div class="container hero-inner">
-    <img class="hero-logo" src="{{ url_for('static', filename='images/logo.png') }}" alt="{{ business.name }} logo">
-    <h1 class="hero-name">{{ business.name }}</h1>
+   <img class="hero-logo" src="{{ url_for('static', filename='images/logo.png') }}" alt="Shiridi Sai logo">
+<h1 class="hero-name">{{ business.name }}</h1>
+<div class="hero-brand-subtitle">CEMENT &amp; IRON</div>
     <div class="caption">
       {% for word in business.caption_words %}<span>{{ word }}</span>{% if not loop.last %}<i class="dot"></i>{% endif %}{% endfor %}
     </div>
